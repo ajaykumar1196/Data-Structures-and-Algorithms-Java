@@ -15,6 +15,7 @@ public class Stack {
     public void push(int value){
         if(ifFull()){
             System.out.println("Stack is full.");
+            System.exit(1);
         }
 
         System.out.println("Pushing " + value);
@@ -30,6 +31,7 @@ public class Stack {
     public int pop(){
         if(isEmpty()){
             System.out.println("Stack is empty.");
+            System.exit(1);
         }
         return arr[top--];
     }
@@ -37,6 +39,15 @@ public class Stack {
     // Check if stack is empty
     private boolean isEmpty() {
         return top == -1;
+    }
+
+    // Return the tail value
+    public int peek(){
+        if(isEmpty()){
+            System.out.println("Stack is empty.");
+            System.exit(1);
+        }
+        return arr[top];
     }
 
     // Print stack
