@@ -53,11 +53,11 @@ public class Stack {
         stack.push(1);
         stack.push(3);
         stack.push(4);
-
+        System.out.println("\nStack status");
         stack.printStack();
 
         stack.pop();
-
+        System.out.println("\nStack status after popping out");
         stack.printStack();
 
     }
