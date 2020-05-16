@@ -60,6 +60,23 @@ public class BinaryTree {
         _preOrder(root);
     }
 
+    boolean _isFullBinaryTree(Node node){
+        if(node == null){
+            return true;
+        }
+        if(node.left == null && node.right == null){
+            return true;
+        }
+        if(node.left != null && node.right != null){
+            return _isFullBinaryTree(node.left) && _isFullBinaryTree(node.right);
+        }
+        return false;
+    }
+
+    boolean isFullBinaryTree(){
+        return _isFullBinaryTree(root);
+    }
+
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
         tree.root = new Node(2);
@@ -76,5 +93,7 @@ public class BinaryTree {
 
         System.out.println("\nPostorder traversal");
         tree.postOrder();
+
+        System.out.println("\nIs full binary tree: " + Boolean.toString(tree.isFullBinaryTree()));
     }
 }
