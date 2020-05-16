@@ -105,6 +105,30 @@ public class BinaryTree {
         return _isPerfectBinaryTree(root, dep, 0);
     }
 
+    int numberOfNodes(Node node){
+        if(node == null){
+            return 0;
+        }
+        return (1 + numberOfNodes(node.left) + numberOfNodes(node.right));
+    }
+
+    boolean _isCompleteBinaryTree(Node node, int index, int numberOfNodes){
+        if(node == null){
+            return true;
+        }
+        if(index >= numberOfNodes){
+            return false;
+        }
+
+        return (_isCompleteBinaryTree(node.left, index * 2 + 1, numberOfNodes) &&
+                (_isCompleteBinaryTree(node.right, index * 2 + 2, numberOfNodes)));
+    }
+
+    boolean isCompleteBinaryTree(){
+        int numberOfNodes = numberOfNodes(root);
+        return _isCompleteBinaryTree(root, 0, numberOfNodes);
+    }
+
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
         tree.root = new Node(2);
@@ -129,5 +153,6 @@ public class BinaryTree {
 
         System.out.println("\nIs full binary tree: " + Boolean.toString(tree.isFullBinaryTree()));
         System.out.println("\nIs perfect binary tree: " + Boolean.toString(tree.isPerfectBinaryTree()));
+        System.out.println("\nIs complete binary tree: " + Boolean.toString(tree.isCompleteBinaryTree()));
     }
 }
