@@ -77,13 +77,46 @@ public class BinaryTree {
         return _isFullBinaryTree(root);
     }
 
+    int depth(Node node){
+        int dep = 0;
+        while (node != null){
+            dep++;
+            node = node.left;
+        }
+        return  dep;
+    }
+
+    boolean _isPerfectBinaryTree(Node root, int depth, int level){
+        if(root == null){
+            return true;
+        }
+        if (root.left == null && root.right == null)
+            return (depth == level + 1);
+
+        if (root.left == null || root.right == null)
+            return false;
+
+        return _isPerfectBinaryTree(root.left, depth, level + 1) &&
+                _isPerfectBinaryTree(root.right, depth, level + 1);
+    }
+
+    boolean isPerfectBinaryTree(){
+        int dep = depth(root);
+        return _isPerfectBinaryTree(root, dep, 0);
+    }
+
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
         tree.root = new Node(2);
         tree.root.left = new Node(15);
-        tree.root.right = new Node(7);
         tree.root.left.left = new Node(5);
         tree.root.left.right = new Node(4);
+
+        tree.root.right = new Node(7);
+        tree.root.right.left = new Node(5);
+        tree.root.right.right = new Node(4);
+
+
 
         System.out.println("Inorder traversal");
         tree.inOrder();
@@ -95,5 +128,6 @@ public class BinaryTree {
         tree.postOrder();
 
         System.out.println("\nIs full binary tree: " + Boolean.toString(tree.isFullBinaryTree()));
+        System.out.println("\nIs perfect binary tree: " + Boolean.toString(tree.isPerfectBinaryTree()));
     }
 }
