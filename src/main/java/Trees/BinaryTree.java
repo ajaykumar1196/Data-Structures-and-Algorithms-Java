@@ -147,17 +147,54 @@ public class BinaryTree {
          return _isHeightBalancedBinaryTree(root) != -1;
     }
 
+    Node _insert(Node node, int data){
+        if(node == null){
+            return new Node(data);
+        }
+        if(data < node.value){
+            node.left = _insert(node.left, data);
+        }
+        if(data > node.value){
+            node.right = _insert(node.right, data);
+        }
+
+        return node;
+    }
+
+    void insert(int data){
+         _insert(root, data);
+    }
+
+    Node _search(Node node, int num){
+        if(node == null){
+            return null;
+        }
+        if(node.value == num){
+            return node;
+        }
+        if(node.value > num){
+            return _search(node.left, num);
+        }
+        return _search(node.right, num);
+    }
+
+    Boolean search(int data){
+        Node node = _search(root, data);
+        return node != null;
+    }
 
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
-        tree.root = new Node(2);
-        tree.root.left = new Node(15);
-        tree.root.left.left = new Node(5);
-        tree.root.left.right = new Node(4);
+        tree.root = new Node(8);
 
-        tree.root.right = new Node(7);
-        tree.root.right.left = new Node(5);
-        tree.root.right.right = new Node(4);
+        tree.insert(3);
+        tree.insert(10);
+        tree.insert(1);
+        tree.insert(6);
+        tree.insert(9);
+        tree.insert(14);
+        tree.insert(4);
+        tree.insert(7);
 
 
 
@@ -171,8 +208,9 @@ public class BinaryTree {
         tree.postOrder();
 
         System.out.println("\nIs full binary tree: " + Boolean.toString(tree.isFullBinaryTree()));
-        System.out.println("\nIs perfect binary tree: " + Boolean.toString(tree.isPerfectBinaryTree()));
-        System.out.println("\nIs complete binary tree: " + Boolean.toString(tree.isCompleteBinaryTree()));
-        System.out.println("\nIs height balanced binary tree: " + Boolean.toString(tree.isHeightBalancedBinaryTree()));
+        System.out.println("Is perfect binary tree: " + Boolean.toString(tree.isPerfectBinaryTree()));
+        System.out.println("Is complete binary tree: " + Boolean.toString(tree.isCompleteBinaryTree()));
+        System.out.println("Is height balanced binary tree: " + Boolean.toString(tree.isHeightBalancedBinaryTree()));
+        System.out.println("Is 4 present: " + Boolean.toString(tree.search(4)));
     }
 }
