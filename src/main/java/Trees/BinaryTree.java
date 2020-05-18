@@ -129,6 +129,25 @@ public class BinaryTree {
         return _isCompleteBinaryTree(root, 0, numberOfNodes);
     }
 
+    int _isHeightBalancedBinaryTree(Node node){
+        if(node == null){
+            return 0;
+        }
+        int leftHeight = _isHeightBalancedBinaryTree(node.left);
+        int rightHeight = _isHeightBalancedBinaryTree(node.right);
+
+        if(leftHeight == -1 || rightHeight == -1 || Math.abs(leftHeight - rightHeight) > 1){
+            return -1;
+        }
+
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
+
+    boolean isHeightBalancedBinaryTree(){
+         return _isHeightBalancedBinaryTree(root) != -1;
+    }
+
+
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
         tree.root = new Node(2);
@@ -154,5 +173,6 @@ public class BinaryTree {
         System.out.println("\nIs full binary tree: " + Boolean.toString(tree.isFullBinaryTree()));
         System.out.println("\nIs perfect binary tree: " + Boolean.toString(tree.isPerfectBinaryTree()));
         System.out.println("\nIs complete binary tree: " + Boolean.toString(tree.isCompleteBinaryTree()));
+        System.out.println("\nIs height balanced binary tree: " + Boolean.toString(tree.isHeightBalancedBinaryTree()));
     }
 }
